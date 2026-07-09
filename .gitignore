@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+/node_modules
+go_pharma_api/node_modules/
+
+# Build
+dist/
+/dist
+go_pharma_api/dist/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.*
+.env.test
+.env.local
+.env.*.local
+!.env.example
+!.env.api-test.example
+!.env.test.example
+go_pharma_api/.env
+go_pharma_api/.env.*
+!go_pharma_api/.env.example
+!go_pharma_api/.env.test.example
+
+# Tests & Coverage
+coverage/
+go_pharma_api/coverage/
+test-results/
+.nyc_output
+
+# OS Files
+.DS_Store
+Thumbs.db
+.Spotlight-V100
+.Trashes
+
+# IDEs
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+.sublime-project
+.sublime-workspace
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+.docker/
+docker-compose.override.yml
+GO_PHARMA_API_STATUS.md
+PLAN.md
+Internship/

@@ -1,0 +1,405 @@
+name: go_pharma_api-ci
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - test
+      - dev
+    paths:
+      - '**'
+      - '.github/workflows/api-ci.yml'
+      - 'docker-compose-api-test.yml'
+      - 'deploy/test/**'
+  pull_request:
+    branches:
+      - main
+      - test
+      - dev
+    paths:
+      - '**'
+      - '.github/workflows/api-ci.yml'
+      - 'docker-compose-api-test.yml'
+      - 'deploy/test/**'
+
+jobs:
+  docker-test-env:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docker test environment (lint + unit + e2e)
+        run: docker compose --env-file .env.api-test.example -f docker-compose-api-test.yml up --build --abort-on-container-exit --exit-code-from api-test-runner api-test-runner
+      - name: Cleanup Docker test environment
+        if: always()
+        run: docker compose --env-file .env.api-test.example -f docker-compose-api-test.yml down -v --remove-orphans
+
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: go_pharma_api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: go_pharma_api/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Lint
+        run: npm run lint:check
+
+  test-unit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: go_pharma_api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: go_pharma_api/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Unit tests
+        run: npm test -- --runInBand --coverage
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-unit
+          path: go_pharma_api/coverage/
+          retention-days: 7
+
+  test-e2e:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: go_pharma_api
+    services:
+      mongodb:
+        image: mongo:7
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: test_password
+    env:
+      MONGODB_URI: mongodb://admin:test_password@localhost:27017/gopharma_test?authSource=admin
+      MONGODB_URI_TEST: mongodb://admin:test_password@localhost:27017/gopharma_test?authSource=admin
+      JWT_ACCESS_SECRET: test_access_secret
+      JWT_REFRESH_SECRET: test_refresh_secret
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: go_pharma_api/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Wait for Mongo
+        run: |
+          for i in {1..30}; do
+            nc -z localhost 27017 && echo "Mongo is ready" && exit 0
+            sleep 1
+          done
+          echo "Mongo did not become ready in time" >&2
+          exit 1
+      - name: Build
+        run: npm run build
+      - name: E2E tests
+        run: npm run test:e2e -- --runInBand
+      - name: Upload e2e logs
+        if: failure() && hashFiles('go_pharma_api/test-results/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-logs
+          path: go_pharma_api/test-results/
+          retention-days: 7
+
+  security:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: go_pharma_api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: go_pharma_api/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Security audit
+        run: npm audit --audit-level=high
+        continue-on-error: true
+
+  build:
+    needs: [docker-test-env, lint, test-unit, test-e2e]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: go_pharma_api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: go_pharma_api/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: go_pharma_api/dist/
+          retention-days: 7
+
+  docker:
+    needs: [build]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/test')
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./go_pharma_api
+          push: false
+          tags: gopharma-api:${{ github.ref_name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  build-and-push-test-image:
+    # Push Docker image vers GitHub Container Registry (ghcr.io)
+    # ✅ Zéro configuration GCP requise - utilise GITHUB_TOKEN natif
+    needs: [docker-test-env, lint, test-unit, test-e2e, build]
+    if: github.ref == 'refs/heads/test' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    environment: test
+    env:
+      IMAGE_NAME: go-pharma-api
+      IMAGE_TAG: ${{ github.sha }}
+      REGISTRY: ghcr.io
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Resolve lowercase image name
+        id: image
+        run: |
+          OWNER_LC="$(printf '%s' "${GITHUB_REPOSITORY_OWNER}" | tr '[:upper:]' '[:lower:]')"
+          echo "base=${REGISTRY}/${OWNER_LC}/${IMAGE_NAME}" >> "${GITHUB_OUTPUT}"
+      - name: Build and push backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./go_pharma_api
+          file: ./go_pharma_api/Dockerfile
+          push: true
+          tags: |
+            ${{ steps.image.outputs.base }}:${{ env.IMAGE_TAG }}
+            ${{ steps.image.outputs.base }}:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy-test:
+    needs: [build-and-push-test-image]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/test'
+    runs-on: ubuntu-latest
+    environment: test
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      GHCR_USERNAME: ${{ secrets.USERNAME }}
+      GHCR_TOKEN: ${{ secrets.TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Load deployment env file
+        shell: bash
+        run: |
+          set -euo pipefail
+          env_file="deploy/test/.env"
+          if [ ! -f "${env_file}" ]; then
+            env_file="deploy/test/.env.example"
+          fi
+          test -f "${env_file}" || (echo "Missing deployment env file" && exit 1)
+
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          env_file = Path('deploy/test/.env')
+          if not env_file.exists():
+              env_file = Path('deploy/test/.env.example')
+
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as gh:
+              for line in env_file.read_text(encoding='utf-8').splitlines():
+                  line = line.strip()
+                  if not line or line.startswith('#') or '=' not in line:
+                      continue
+                  key, value = line.split('=', 1)
+                  if value:
+                      gh.write(f'{key}={value}\n')
+          PY
+      - name: Resolve GCP project
+        run: |
+          test -n "${GCP_CREDENTIALS}" || (echo "Missing GCP_CREDENTIALS secret" && exit 1)
+          if [ -z "${GCP_PROJECT_ID}" ]; then
+            GCP_PROJECT_ID="$(node -e "const raw = process.env.GCP_CREDENTIALS; const data = JSON.parse(raw); process.stdout.write(data.project_id || data.projectId || '')")"
+          fi
+          test -n "${GCP_PROJECT_ID}" || (echo "Missing GCP_PROJECT_ID" && exit 1)
+          echo "GCP_PROJECT_ID=${GCP_PROJECT_ID}" >> "${GITHUB_ENV}"
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ env.GCP_CREDENTIALS }}
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+      - name: Resolve GCP zone
+        run: |
+          test -n "${GCP_TEST_INSTANCE}" || (echo "Missing GCP_TEST_INSTANCE" && exit 1)
+          if [ -z "${GCP_ZONE}" ]; then
+            GCP_ZONE="$(gcloud compute instances list \
+              --project "${GCP_PROJECT_ID}" \
+              --filter "name=(${GCP_TEST_INSTANCE})" \
+              --format "value(zone)" \
+              --limit 1)"
+            GCP_ZONE="${GCP_ZONE##*/}"
+          fi
+          test -n "${GCP_ZONE}" || (echo "Missing GCP_ZONE and could not infer it from GCP_TEST_INSTANCE" && exit 1)
+          echo "GCP_ZONE=${GCP_ZONE}" >> "${GITHUB_ENV}"
+      - name: Validate deployment configuration
+        run: |
+          test -n "${GCP_PROJECT_ID}" || (echo "Missing GCP_PROJECT_ID" && exit 1)
+          test -n "${GCP_ZONE}" || (echo "Missing GCP_ZONE" && exit 1)
+          test -n "${GCP_TEST_INSTANCE}" || (echo "Missing GCP_TEST_INSTANCE" && exit 1)
+          test -n "${GCP_TEST_DEPLOY_PATH}" || (echo "Missing GCP_TEST_DEPLOY_PATH" && exit 1)
+          test -n "${FRONTEND_HOST}" || (echo "Missing FRONTEND_HOST" && exit 1)
+          test -n "${API_HOST}" || (echo "Missing API_HOST" && exit 1)
+          test -n "${TRAEFIK_ACME_EMAIL}" || (echo "Missing TRAEFIK_ACME_EMAIL" && exit 1)
+          test -n "${GHCR_USERNAME}" || (echo "Missing USERNAME secret" && exit 1)
+          test -n "${GHCR_TOKEN}" || (echo "Missing TOKEN secret" && exit 1)
+          test -n "${NEXT_PUBLIC_API_URL}" || (echo "Missing NEXT_PUBLIC_API_URL secret" && exit 1)
+          test -n "${MONGO_INITDB_ROOT_USERNAME}" || (echo "Missing MONGO_INITDB_ROOT_USERNAME secret" && exit 1)
+          test -n "${MONGO_INITDB_ROOT_PASSWORD}" || (echo "Missing MONGO_INITDB_ROOT_PASSWORD secret" && exit 1)
+          test -n "${JWT_ACCESS_SECRET}" || (echo "Missing JWT_ACCESS_SECRET secret" && exit 1)
+          test -n "${JWT_REFRESH_SECRET}" || (echo "Missing JWT_REFRESH_SECRET secret" && exit 1)
+      - name: Prepare runtime env file
+        run: |
+          set -euo pipefail
+          umask 077
+          cp deploy/test/.env deploy/test/.env.generated 2>/dev/null || cp deploy/test/.env.example deploy/test/.env.generated
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          env_path = Path('deploy/test/.env.generated')
+          values = {}
+          for line in env_path.read_text(encoding='utf-8').splitlines():
+              line = line.strip()
+              if not line or line.startswith('#') or '=' not in line:
+                  continue
+              key, value = line.split('=', 1)
+              values[key] = os.path.expandvars(value)
+
+          if not values.get('CORS_ORIGINS') and values.get('FRONTEND_HOST'):
+              values['CORS_ORIGINS'] = f"https://{values['FRONTEND_HOST']}"
+
+          Path('deploy/test/.env').write_text('\n'.join(f'{key}={values[key]}' for key in values) + '\n', encoding='utf-8')
+          PY
+      - name: Validate runtime compose
+        run: docker compose --env-file deploy/test/.env -f docker-compose-test.yml config >/dev/null
+      - name: Upload runtime stack to GCP VM
+        run: |
+          gcloud compute ssh "${GCP_TEST_INSTANCE}" \
+            --project "${GCP_PROJECT_ID}" \
+            --zone "${GCP_ZONE}" \
+            --command "sudo mkdir -p '${GCP_TEST_DEPLOY_PATH}' && sudo chown \"\$(whoami):\$(id -gn)\" '${GCP_TEST_DEPLOY_PATH}'"
+          gcloud compute scp docker-compose-test.yml deploy/test/.env \
+            "${GCP_TEST_INSTANCE}:${GCP_TEST_DEPLOY_PATH}/" \
+            --project "${GCP_PROJECT_ID}" \
+            --zone "${GCP_ZONE}"
+      - name: Deploy runtime stack
+        run: |
+          gcloud compute ssh "${GCP_TEST_INSTANCE}" \
+            --project "${GCP_PROJECT_ID}" \
+            --zone "${GCP_ZONE}" \
+            --command "cd '${GCP_TEST_DEPLOY_PATH}' && echo '${GHCR_TOKEN}' | docker login ghcr.io -u '${GHCR_USERNAME}' --password-stdin && docker compose --env-file .env -f docker-compose-test.yml pull && docker compose --env-file .env -f docker-compose-test.yml up -d --remove-orphans && docker compose --env-file .env -f docker-compose-test.yml ps"
+      - name: Verify public endpoints
+        run: |
+          for url in "https://${FRONTEND_HOST}" "https://${API_HOST}/api/system/health"; do
+            echo "Checking ${url}"
+            for attempt in {1..30}; do
+              if curl -fsS "${url}" >/dev/null; then
+                echo "OK ${url}"
+                break
+              fi
+              if [ "${attempt}" -eq 30 ]; then
+                echo "Endpoint did not become healthy: ${url}" >&2
+                exit 1
+              fi
+              sleep 10
+            done
+          done
+
+  deploy-production:
+    needs: [docker-test-env, lint, test-unit, test-e2e, build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+      JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
+      JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
+      JWT_ACCESS_TTL: ${{ secrets.JWT_ACCESS_TTL }}
+      JWT_REFRESH_TTL: ${{ secrets.JWT_REFRESH_TTL }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      SMTP_FROM: ${{ secrets.SMTP_FROM }}
+      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      GOOGLE_CALLBACK_URL: ${{ secrets.GOOGLE_CALLBACK_URL }}
+      GOOGLE_SUCCESS_REDIRECT_URL: ${{ secrets.GOOGLE_SUCCESS_REDIRECT_URL }}
+      GOOGLE_FAILURE_REDIRECT_URL: ${{ secrets.GOOGLE_FAILURE_REDIRECT_URL }}
+      CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+      CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate environment secrets
+        run: |
+          test -n "${MONGO_INITDB_ROOT_USERNAME}" || (echo "Missing MONGO_INITDB_ROOT_USERNAME secret" && exit 1)
+          test -n "${MONGO_INITDB_ROOT_PASSWORD}" || (echo "Missing MONGO_INITDB_ROOT_PASSWORD secret" && exit 1)
+          test -n "${JWT_ACCESS_SECRET}" || (echo "Missing JWT_ACCESS_SECRET secret" && exit 1)
+          test -n "${JWT_REFRESH_SECRET}" || (echo "Missing JWT_REFRESH_SECRET secret" && exit 1)
+      - name: Deploy metadata
+        run: |
+          echo "Backend production deployment context"
+          echo "branch=${GITHUB_REF_NAME}"
+          echo "sha=${GITHUB_SHA}"
+          echo "actor=${GITHUB_ACTOR}"
