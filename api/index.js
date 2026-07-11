@@ -10,8 +10,8 @@ async function bootstrap() {
   if (!app) {
     app = await NestFactory.create(AppModule);
     
-    const apiPrefix = process.env.API_PREFIX ?? 'api';
-    app.setGlobalPrefix(apiPrefix);
+    // No prefix for Vercel serverless function
+    app.setGlobalPrefix('');
 
     const corsOrigins = (process.env.CORS_ORIGINS ?? '*').split(',');
     app.enableCors({
