@@ -2,11 +2,11 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import mongoose, { Model } from 'mongoose';
 import { BadRequestException } from '@nestjs/common';
-import { SupportedLanguage } from 'src/common/enums/domain.enums';
-import { LocalizationService } from 'src/common/localization/localization.service';
-import { loadBackendEnv } from 'src/common/testing/load-env';
-import { User, UserDocument, UserSchema } from 'src/users/schemas/user.schema';
-import { UsersService } from 'src/users/users.service';
+import { SupportedLanguage } from '../common/enums/domain.enums';
+import { LocalizationService } from '../common/localization/localization.service';
+import { loadBackendEnv } from '../common/testing/load-env';
+import { User, UserDocument, UserSchema } from '../users/schemas/user.schema';
+import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import {
   PasswordResetToken,

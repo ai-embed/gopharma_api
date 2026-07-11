@@ -8,7 +8,7 @@ import {
   IsString,
   Length
 } from 'class-validator';
-import { AccountStatus } from 'src/common/enums/domain.enums';
+import { AccountStatus } from '../../common/enums/domain.enums';
 
 export class UpdateAdminPharmacyDto {
   @ApiPropertyOptional()

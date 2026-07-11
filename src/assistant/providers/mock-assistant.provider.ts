@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { LocalizationService } from 'src/common/localization/localization.service';
+import { LocalizationService } from '../../common/localization/localization.service';
 import { AiCompletionResult, AiProvider } from './ai-provider.interface';
 
 @Injectable()

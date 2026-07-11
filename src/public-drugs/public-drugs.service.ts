@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
-import { Product, ProductDocument } from 'src/catalog/schemas/product.schema';
+import { Product, ProductDocument } from '../catalog/schemas/product.schema';
 import { PUBLIC_DRUGS_SAMPLE, PublicDrugRecord } from './public-drugs.sample';
 import { PublicDrugsSort } from './dto/public-drugs-query.dto';
 import {

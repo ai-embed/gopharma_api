@@ -1,5 +1,5 @@
 import mongoose, { Model, Types } from 'mongoose';
-import { loadBackendEnv } from 'src/common/testing/load-env';
+import { loadBackendEnv } from '../common/testing/load-env';
 import { Visit, VisitDocument, VisitSchema } from './schemas/visit.schema';
 import { VisitsService } from './visits.service';
 

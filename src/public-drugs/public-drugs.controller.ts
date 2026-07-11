@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/common/decorators/public.decorator';
+import { Public } from '../common/decorators/public.decorator';
 import { PublicDrugResponseDto } from './dto/public-drug-response.dto';
 import { PublicDrugsQueryDto } from './dto/public-drugs-query.dto';
 import { PublicDrugsService } from './public-drugs.service';

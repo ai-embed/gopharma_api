@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { AccountStatus, Role } from 'src/common/enums/domain.enums';
-import { AuthenticatedUser } from 'src/common/types/authenticated-user.type';
+import { AccountStatus, Role } from '../../common/enums/domain.enums';
+import { AuthenticatedUser } from '../../common/types/authenticated-user.type';
 
 interface JwtPayload {
   sub: string;

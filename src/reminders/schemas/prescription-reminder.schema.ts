@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { ReminderFrequency } from 'src/common/enums/domain.enums';
+import { ReminderFrequency } from '../../common/enums/domain.enums';
 
 export type PrescriptionReminderDocument = HydratedDocument<PrescriptionReminder>;
 

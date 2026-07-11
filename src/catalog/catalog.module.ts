@@ -1,9 +1,9 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { FavoritesModule } from 'src/favorites/favorites.module';
-import { NotificationsModule } from 'src/notifications/notifications.module';
-import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
-import { PublicDrugsModule } from 'src/public-drugs/public-drugs.module';
+import { FavoritesModule } from '../favorites/favorites.module';
+import { NotificationsModule } from '../notifications/notifications.module';
+import { PharmaciesModule } from '../pharmacies/pharmacies.module';
+import { PublicDrugsModule } from '../public-drugs/public-drugs.module';
 import { CatalogService } from './catalog.service';
 import { InventoryItem, InventoryItemSchema } from './schemas/inventory-item.schema';
 import { ManagerCategory, ManagerCategorySchema } from './schemas/manager-category.schema';

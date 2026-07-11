@@ -1,10 +1,10 @@
 import mongoose, { Model } from 'mongoose';
-import { AccountStatus } from 'src/common/enums/domain.enums';
-import { loadBackendEnv } from 'src/common/testing/load-env';
-import { Pharmacy, PharmacyDocument, PharmacySchema } from 'src/pharmacies/schemas/pharmacy.schema';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
-import { SchedulesService } from 'src/schedules/schedules.service';
-import { Schedule, ScheduleDocument, ScheduleSchema } from 'src/schedules/schemas/schedule.schema';
+import { AccountStatus } from '../common/enums/domain.enums';
+import { loadBackendEnv } from '../common/testing/load-env';
+import { Pharmacy, PharmacyDocument, PharmacySchema } from '../pharmacies/schemas/pharmacy.schema';
+import { PharmaciesService } from '../pharmacies/pharmacies.service';
+import { SchedulesService } from '../schedules/schedules.service';
+import { Schedule, ScheduleDocument, ScheduleSchema } from '../schedules/schemas/schedule.schema';
 import { SearchService } from './search.service';
 
 loadBackendEnv();

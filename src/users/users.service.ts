@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { AccountStatus } from 'src/common/enums/domain.enums';
-import { CloudinaryService } from 'src/common/services/cloudinary.service';
+import { AccountStatus } from '../common/enums/domain.enums';
+import { CloudinaryService } from '../common/services/cloudinary.service';
 import { UpdateMeDto } from './dto/update-me.dto';
 import { UpdatePreferencesDto } from './dto/update-preferences.dto';
 import { User, UserDocument } from './schemas/user.schema';

@@ -1,7 +1,7 @@
-import { LocalizationService } from 'src/common/localization/localization.service';
+import { LocalizationService } from '../common/localization/localization.service';
 import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { AccountStatus, Role, SupportedLanguage } from 'src/common/enums/domain.enums';
+import { AccountStatus, Role, SupportedLanguage } from '../common/enums/domain.enums';
 import * as bcrypt from 'bcryptjs';
 import { AuthService } from './auth.service';
 

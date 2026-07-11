@@ -9,17 +9,17 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { SuccessResponseDto } from 'src/auth/dto/auth-response.dto';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { Roles } from 'src/common/decorators/roles.decorator';
-import { Role } from 'src/common/enums/domain.enums';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { AuthenticatedUser } from 'src/common/types/authenticated-user.type';
+import { SuccessResponseDto } from '../auth/dto/auth-response.dto';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { Roles } from '../common/decorators/roles.decorator';
+import { Role } from '../common/enums/domain.enums';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { AuthenticatedUser } from '../common/types/authenticated-user.type';
 import { ManagerScheduleResponseDto } from './dto/manager-response.dto';
-import { CreateExceptionScheduleDto } from 'src/schedules/dto/create-exception-schedule.dto';
-import { UpdateWeeklyScheduleDto } from 'src/schedules/dto/update-weekly-schedule.dto';
-import { SchedulesService } from 'src/schedules/schedules.service';
+import { CreateExceptionScheduleDto } from '../schedules/dto/create-exception-schedule.dto';
+import { UpdateWeeklyScheduleDto } from '../schedules/dto/update-weekly-schedule.dto';
+import { SchedulesService } from '../schedules/schedules.service';
 
 @ApiTags('Manager')
 @ApiBearerAuth('bearer')

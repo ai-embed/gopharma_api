@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { FavoriteTargetType } from 'src/common/enums/domain.enums';
+import { FavoriteTargetType } from '../../common/enums/domain.enums';
 
 export class FavoriteResponseDto {
   @ApiProperty()

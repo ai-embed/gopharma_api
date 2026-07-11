@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { IntegrationStatusMapResponseDto } from 'src/admin/dto/admin-response.dto';
-import { IntegrationValidationService } from 'src/admin/integration-validation.service';
+import { IntegrationStatusMapResponseDto } from '../admin/dto/admin-response.dto';
+import { IntegrationValidationService } from '../admin/integration-validation.service';
 
 @ApiTags('System')
 @Controller('system')

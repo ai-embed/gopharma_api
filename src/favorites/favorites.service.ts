@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { FavoriteTargetType } from 'src/common/enums/domain.enums';
+import { FavoriteTargetType } from '../common/enums/domain.enums';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
 import { Favorite, FavoriteDocument } from './schemas/favorite.schema';
 

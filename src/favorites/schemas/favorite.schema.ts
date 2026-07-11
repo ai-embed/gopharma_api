@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { FavoriteTargetType } from 'src/common/enums/domain.enums';
+import { FavoriteTargetType } from '../../common/enums/domain.enums';
 
 export type FavoriteDocument = HydratedDocument<Favorite>;
 

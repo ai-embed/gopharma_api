@@ -21,14 +21,14 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { AuthenticatedUser } from 'src/common/types/authenticated-user.type';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { AuthenticatedUser } from '../common/types/authenticated-user.type';
 import { UpdateMeDto } from './dto/update-me.dto';
 import { UpdatePreferencesDto } from './dto/update-preferences.dto';
 import { UserResponseDto } from './dto/user-response.dto';
 import { UsersService } from './users.service';
-import { SuccessResponseDto } from 'src/auth/dto/auth-response.dto';
+import { SuccessResponseDto } from '../auth/dto/auth-response.dto';
 
 @ApiTags('Users')
 @ApiBearerAuth('bearer')

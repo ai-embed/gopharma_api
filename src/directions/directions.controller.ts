@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/common/decorators/public.decorator';
+import { Public } from '../common/decorators/public.decorator';
 import { DirectionsQueryDto } from './dto/directions-query.dto';
 import { DirectionsResponseDto } from './dto/directions-response.dto';
 import { DirectionsService } from './directions.service';

@@ -9,12 +9,12 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { SuccessResponseDto } from 'src/auth/dto/auth-response.dto';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { AuthenticatedUser } from 'src/common/types/authenticated-user.type';
-import { UsersService } from 'src/users/users.service';
-import { UserResponseDto } from 'src/users/dto/user-response.dto';
+import { SuccessResponseDto } from '../auth/dto/auth-response.dto';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { AuthenticatedUser } from '../common/types/authenticated-user.type';
+import { UsersService } from '../users/users.service';
+import { UserResponseDto } from '../users/dto/user-response.dto';
 import { PushTokensService } from './push-tokens.service';
 import { UpdateNotificationSettingsDto } from './dto/update-notification-settings.dto';
 import { NotificationResponseDto } from './dto/notification-response.dto';

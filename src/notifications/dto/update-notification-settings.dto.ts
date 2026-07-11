@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsArray, IsBoolean, IsEnum, IsOptional } from 'class-validator';
-import { NotificationChannel } from 'src/common/enums/domain.enums';
+import { NotificationChannel } from '../../common/enums/domain.enums';
 
 export class UpdateNotificationSettingsDto {
   @ApiPropertyOptional()

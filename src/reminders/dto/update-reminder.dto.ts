@@ -11,7 +11,7 @@ import {
   Min,
   ValidateIf
 } from 'class-validator';
-import { ReminderFrequency } from 'src/common/enums/domain.enums';
+import { ReminderFrequency } from '../../common/enums/domain.enums';
 
 export class UpdateReminderDto {
   @ApiPropertyOptional({ example: 'Paracetamol 500mg' })

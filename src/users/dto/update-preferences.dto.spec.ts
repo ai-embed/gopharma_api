@@ -1,6 +1,6 @@
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
-import { SupportedLanguage, ThemePreference } from 'src/common/enums/domain.enums';
+import { SupportedLanguage, ThemePreference } from '../../common/enums/domain.enums';
 import { UpdatePreferencesDto } from './update-preferences.dto';
 
 describe('UpdatePreferencesDto', () => {

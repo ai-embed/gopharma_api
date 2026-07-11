@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PublicPharmacyResponseDto } from 'src/pharmacies/dto/public-pharmacy-response.dto';
+import { PublicPharmacyResponseDto } from '../../pharmacies/dto/public-pharmacy-response.dto';
 
 export class SearchMultiProductPharmacyResponseDto {
   @ApiProperty({ type: PublicPharmacyResponseDto })

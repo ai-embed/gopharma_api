@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { ValidationStatus } from 'src/common/enums/domain.enums';
+import { ValidationStatus } from '../common/enums/domain.enums';
 import {
   PharmacyValidation,
   PharmacyValidationDocument

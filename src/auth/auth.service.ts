@@ -13,14 +13,14 @@ import {
   AccountStatus,
   Role,
   ValidationStatus
-} from 'src/common/enums/domain.enums';
-import { LocalizationService } from 'src/common/localization/localization.service';
-import { GeocodingService } from 'src/common/services/geocoding.service';
-import { MailerService } from 'src/common/services/mailer.service';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
-import { PharmacyValidationsService } from 'src/pharmacies/pharmacy-validations.service';
-import { User, UserDocument } from 'src/users/schemas/user.schema';
-import { UsersService } from 'src/users/users.service';
+} from '../common/enums/domain.enums';
+import { LocalizationService } from '../common/localization/localization.service';
+import { GeocodingService } from '../common/services/geocoding.service';
+import { MailerService } from '../common/services/mailer.service';
+import { PharmaciesService } from '../pharmacies/pharmacies.service';
+import { PharmacyValidationsService } from '../pharmacies/pharmacy-validations.service';
+import { User, UserDocument } from '../users/schemas/user.schema';
+import { UsersService } from '../users/users.service';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { GoogleAuthDto } from './dto/google-auth.dto';
 import { LoginDto } from './dto/login.dto';

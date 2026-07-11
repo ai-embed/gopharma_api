@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { AccountStatus, ValidationStatus } from 'src/common/enums/domain.enums';
-import { PublicDrugResponseDto } from 'src/public-drugs/dto/public-drug-response.dto';
-import { UserResponseDto } from 'src/users/dto/user-response.dto';
+import { AccountStatus, ValidationStatus } from '../../common/enums/domain.enums';
+import { PublicDrugResponseDto } from '../../public-drugs/dto/public-drug-response.dto';
+import { UserResponseDto } from '../../users/dto/user-response.dto';
 
 export class IntegrationStatusResponseDto {
   @ApiProperty({ enum: ['smtp', 'googleMaps'] })

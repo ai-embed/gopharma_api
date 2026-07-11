@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { NotificationType, StockMovementType } from 'src/common/enums/domain.enums';
-import { FavoritesService } from 'src/favorites/favorites.service';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
-import { PublicDrugsService } from 'src/public-drugs/public-drugs.service';
+import { NotificationType, StockMovementType } from '../common/enums/domain.enums';
+import { FavoritesService } from '../favorites/favorites.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { PharmaciesService } from '../pharmacies/pharmacies.service';
+import { PublicDrugsService } from '../public-drugs/public-drugs.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdatePriceDto } from './dto/update-price.dto';
 import { UpdateProductDto } from './dto/update-product.dto';

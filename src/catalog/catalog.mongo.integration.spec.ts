@@ -7,24 +7,24 @@ import {
   Role,
   SupportedLanguage,
   StockMovementType
-} from 'src/common/enums/domain.enums';
-import { LocalizationService } from 'src/common/localization/localization.service';
-import { MailerService } from 'src/common/services/mailer.service';
-import { loadBackendEnv } from 'src/common/testing/load-env';
-import { Favorite, FavoriteDocument, FavoriteSchema } from 'src/favorites/schemas/favorite.schema';
-import { FavoritesService } from 'src/favorites/favorites.service';
-import { Notification, NotificationDocument, NotificationSchema } from 'src/notifications/schemas/notification.schema';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { Pharmacy, PharmacyDocument, PharmacySchema } from 'src/pharmacies/schemas/pharmacy.schema';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
-import { User, UserDocument, UserSchema } from 'src/users/schemas/user.schema';
-import { UsersService } from 'src/users/users.service';
-import { PublicDrugsService } from 'src/public-drugs/public-drugs.service';
+} from '../common/enums/domain.enums';
+import { LocalizationService } from '../common/localization/localization.service';
+import { MailerService } from '../common/services/mailer.service';
+import { loadBackendEnv } from '../common/testing/load-env';
+import { Favorite, FavoriteDocument, FavoriteSchema } from '../favorites/schemas/favorite.schema';
+import { FavoritesService } from '../favorites/favorites.service';
+import { Notification, NotificationDocument, NotificationSchema } from '../notifications/schemas/notification.schema';
+import { NotificationsService } from '../notifications/notifications.service';
+import { Pharmacy, PharmacyDocument, PharmacySchema } from '../pharmacies/schemas/pharmacy.schema';
+import { PharmaciesService } from '../pharmacies/pharmacies.service';
+import { User, UserDocument, UserSchema } from '../users/schemas/user.schema';
+import { UsersService } from '../users/users.service';
+import { PublicDrugsService } from '../public-drugs/public-drugs.service';
 import {
   AdminMedicament,
   AdminMedicamentDocument,
   AdminMedicamentSchema
-} from 'src/public-drugs/schemas/admin-medicament.schema';
+} from '../public-drugs/schemas/admin-medicament.schema';
 import { CatalogService } from './catalog.service';
 import { InventoryItem, InventoryItemDocument, InventoryItemSchema } from './schemas/inventory-item.schema';
 import {

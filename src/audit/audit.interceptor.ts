@@ -5,7 +5,7 @@ import {
   NestInterceptor
 } from '@nestjs/common';
 import { Observable, catchError, from, map, mergeMap, throwError } from 'rxjs';
-import { AuthenticatedUser } from 'src/common/types/authenticated-user.type';
+import { AuthenticatedUser } from '../common/types/authenticated-user.type';
 import { AuditService } from './audit.service';
 
 @Injectable()

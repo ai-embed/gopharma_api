@@ -1,4 +1,4 @@
-import { SupportedLanguage } from 'src/common/enums/domain.enums';
+import { SupportedLanguage } from '../../common/enums/domain.enums';
 
 export interface AiCompletionResult {
   text: string;

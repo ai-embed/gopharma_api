@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { GeocodingService } from 'src/common/services/geocoding.service';
+import { GeocodingService } from '../common/services/geocoding.service';
 import { DirectionsQueryDto, TravelMode } from './dto/directions-query.dto';
 import { DirectionsResponseDto } from './dto/directions-response.dto';
 

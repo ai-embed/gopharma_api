@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException, forwardRef } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
+import { PharmaciesService } from '../pharmacies/pharmacies.service';
 import { CreateExceptionScheduleDto } from './dto/create-exception-schedule.dto';
 import { UpdateWeeklyScheduleDto } from './dto/update-weekly-schedule.dto';
 import { ExceptionSlot, Schedule, ScheduleDocument } from './schemas/schedule.schema';

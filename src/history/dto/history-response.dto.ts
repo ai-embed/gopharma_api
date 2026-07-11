@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { SearchType } from 'src/common/enums/domain.enums';
+import { SearchType } from '../../common/enums/domain.enums';
 
 export class HistoryMetadataDto {
   @ApiPropertyOptional()

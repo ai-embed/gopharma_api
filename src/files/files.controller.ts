@@ -11,7 +11,7 @@ import {
 import { ApiBody, ApiConsumes, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
-import { Public } from 'src/common/decorators/public.decorator';
+import { Public } from '../common/decorators/public.decorator';
 import { FileUploadRequestDto, FileUploadResponseDto } from './dto/file-response.dto';
 import { FilesService } from './files.service';
 

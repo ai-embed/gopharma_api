@@ -1,5 +1,5 @@
-import { NotificationChannel, NotificationType, SupportedLanguage } from 'src/common/enums/domain.enums';
-import { LocalizationService } from 'src/common/localization/localization.service';
+import { NotificationChannel, NotificationType, SupportedLanguage } from '../common/enums/domain.enums';
+import { LocalizationService } from '../common/localization/localization.service';
 import { NotificationsService } from './notifications.service';
 
 describe('NotificationsService', () => {

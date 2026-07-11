@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { AccountStatus, StockMovementType } from 'src/common/enums/domain.enums';
+import { AccountStatus, StockMovementType } from '../../common/enums/domain.enums';
 
 class ManagerPharmacyLocationResponseDto {
   @ApiProperty({ enum: ['Point'] })

@@ -1,5 +1,5 @@
 import mongoose, { Model } from 'mongoose';
-import { AuditService } from 'src/audit/audit.service';
+import { AuditService } from '../audit/audit.service';
 import {
   AccountStatus,
   NotificationChannel,
@@ -7,21 +7,21 @@ import {
   Role,
   SupportedLanguage,
   ValidationStatus
-} from 'src/common/enums/domain.enums';
-import { LocalizationService } from 'src/common/localization/localization.service';
-import { loadBackendEnv } from 'src/common/testing/load-env';
-import { Notification, NotificationDocument, NotificationSchema } from 'src/notifications/schemas/notification.schema';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
-import { PharmacyValidationsService } from 'src/pharmacies/pharmacy-validations.service';
-import { PharmacyValidation, PharmacyValidationDocument, PharmacyValidationSchema } from 'src/pharmacies/schemas/pharmacy-validation.schema';
-import { Pharmacy, PharmacyDocument, PharmacySchema } from 'src/pharmacies/schemas/pharmacy.schema';
-import { InventoryItem, InventoryItemDocument, InventoryItemSchema } from 'src/catalog/schemas/inventory-item.schema';
-import { Product, ProductDocument, ProductSchema } from 'src/catalog/schemas/product.schema';
-import { AdminMedicament, AdminMedicamentDocument, AdminMedicamentSchema } from 'src/public-drugs/schemas/admin-medicament.schema';
-import { PublicDrugsService } from 'src/public-drugs/public-drugs.service';
-import { User, UserDocument, UserSchema } from 'src/users/schemas/user.schema';
-import { UsersService } from 'src/users/users.service';
+} from '../common/enums/domain.enums';
+import { LocalizationService } from '../common/localization/localization.service';
+import { loadBackendEnv } from '../common/testing/load-env';
+import { Notification, NotificationDocument, NotificationSchema } from '../notifications/schemas/notification.schema';
+import { NotificationsService } from '../notifications/notifications.service';
+import { PharmaciesService } from '../pharmacies/pharmacies.service';
+import { PharmacyValidationsService } from '../pharmacies/pharmacy-validations.service';
+import { PharmacyValidation, PharmacyValidationDocument, PharmacyValidationSchema } from '../pharmacies/schemas/pharmacy-validation.schema';
+import { Pharmacy, PharmacyDocument, PharmacySchema } from '../pharmacies/schemas/pharmacy.schema';
+import { InventoryItem, InventoryItemDocument, InventoryItemSchema } from '../catalog/schemas/inventory-item.schema';
+import { Product, ProductDocument, ProductSchema } from '../catalog/schemas/product.schema';
+import { AdminMedicament, AdminMedicamentDocument, AdminMedicamentSchema } from '../public-drugs/schemas/admin-medicament.schema';
+import { PublicDrugsService } from '../public-drugs/public-drugs.service';
+import { User, UserDocument, UserSchema } from '../users/schemas/user.schema';
+import { UsersService } from '../users/users.service';
 import { AdminService } from './admin.service';
 import { IntegrationValidationService } from './integration-validation.service';
 import { Suspension, SuspensionDocument, SuspensionSchema } from './schemas/suspension.schema';

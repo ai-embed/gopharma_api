@@ -2,21 +2,21 @@ import { BadRequestException, Injectable, Optional } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcryptjs';
 import { Model, Types } from 'mongoose';
-import { AuditLogQueryDto } from 'src/audit/dto/audit-log-query.dto';
-import { AuditService } from 'src/audit/audit.service';
+import { AuditLogQueryDto } from '../audit/dto/audit-log-query.dto';
+import { AuditService } from '../audit/audit.service';
 import {
   AccountStatus,
   NotificationType,
   Role,
   ValidationStatus
-} from 'src/common/enums/domain.enums';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
-import { PharmacyValidationsService } from 'src/pharmacies/pharmacy-validations.service';
-import { PublicDrugsService } from 'src/public-drugs/public-drugs.service';
-import { PublicDrugsSort } from 'src/public-drugs/dto/public-drugs-query.dto';
-import { UsersService } from 'src/users/users.service';
-import { User, UserDocument } from 'src/users/schemas/user.schema';
+} from '../common/enums/domain.enums';
+import { NotificationsService } from '../notifications/notifications.service';
+import { PharmaciesService } from '../pharmacies/pharmacies.service';
+import { PharmacyValidationsService } from '../pharmacies/pharmacy-validations.service';
+import { PublicDrugsService } from '../public-drugs/public-drugs.service';
+import { PublicDrugsSort } from '../public-drugs/dto/public-drugs-query.dto';
+import { UsersService } from '../users/users.service';
+import { User, UserDocument } from '../users/schemas/user.schema';
 import { IntegrationValidationService } from './integration-validation.service';
 import { CreateAdminUserDto } from './dto/create-admin-user.dto';
 import { CreateAdminPharmacyDto } from './dto/create-admin-pharmacy.dto';
@@ -31,8 +31,8 @@ import { Suspension, SuspensionDocument } from './schemas/suspension.schema';
 import { UpdateAdminMedicamentDto } from './dto/update-admin-medicament.dto';
 import { UpdateAdminPharmacyDto } from './dto/update-admin-pharmacy.dto';
 import { UpdateAdminUserDto } from './dto/update-admin-user.dto';
-import { InventoryItem, InventoryItemDocument } from 'src/catalog/schemas/inventory-item.schema';
-import { Product, ProductDocument } from 'src/catalog/schemas/product.schema';
+import { InventoryItem, InventoryItemDocument } from '../catalog/schemas/inventory-item.schema';
+import { Product, ProductDocument } from '../catalog/schemas/product.schema';
 
 function dayKey(date: Date) {
   return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;

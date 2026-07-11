@@ -1,5 +1,5 @@
-import { SupportedLanguage } from 'src/common/enums/domain.enums';
-import { LocalizationService } from 'src/common/localization/localization.service';
+import { SupportedLanguage } from '../common/enums/domain.enums';
+import { LocalizationService } from '../common/localization/localization.service';
 import { AssistantService } from './assistant.service';
 
 describe('AssistantService', () => {

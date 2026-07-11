@@ -6,7 +6,7 @@ import {
   Role,
   SupportedLanguage,
   ThemePreference
-} from 'src/common/enums/domain.enums';
+} from '../../common/enums/domain.enums';
 
 export type UserDocument = HydratedDocument<User>;
 
