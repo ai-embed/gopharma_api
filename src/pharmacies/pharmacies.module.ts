@@ -1,9 +1,9 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CloudinaryModule } from 'src/common/services/cloudinary.module';
-import { CatalogModule } from 'src/catalog/catalog.module';
-import { SchedulesModule } from 'src/schedules/schedules.module';
-import { VisitsModule } from 'src/visits/visits.module';
+import { CloudinaryModule } from '../common/services/cloudinary.module';
+import { CatalogModule } from '../catalog/catalog.module';
+import { SchedulesModule } from '../schedules/schedules.module';
+import { VisitsModule } from '../visits/visits.module';
 import {
   PharmacyValidation,
   PharmacyValidationSchema
