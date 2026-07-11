@@ -25,6 +25,7 @@ import { RateLimitGuard } from './common/guards/rate-limit.guard';
 import { PublicDrugsModule } from './public-drugs/public-drugs.module';
 import { DirectionsModule } from './directions/directions.module';
 import { HealthModule } from './health/health.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { HealthModule } from './health/health.module';
     AuditModule,
     HealthModule
   ],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,
