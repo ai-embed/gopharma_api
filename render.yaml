@@ -10,7 +10,7 @@ services:
       - key: PORT
         value: 3000
       - key: API_PREFIX
-        value: 
+        value: ""
       - key: CORS_ORIGINS
         value: "*"
       - key: MONGODB_URI
