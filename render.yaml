@@ -7,9 +7,59 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 3000
       - key: API_PREFIX
-        value: api
+        value: 
       - key: CORS_ORIGINS
         value: "*"
       - key: MONGODB_URI
         sync: false
+      - key: JWT_ACCESS_SECRET
+        sync: false
+      - key: JWT_ACCESS_TTL
+        value: 7d
+      - key: JWT_REFRESH_SECRET
+        sync: false
+      - key: JWT_REFRESH_TTL
+        value: 7d
+      - key: JWT_REFRESH_TTL_REMEMBER
+        value: 30d
+      - key: EMAIL_VERIFICATION_TTL_MINUTES
+        value: 1440
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_CALLBACK_URL
+        sync: false
+      - key: GOOGLE_SUCCESS_REDIRECT_URL
+        sync: false
+      - key: GOOGLE_FAILURE_REDIRECT_URL
+        sync: false
+      - key: GOOGLE_JWKS_URL
+        value: https://www.googleapis.com/oauth2/v3/certs
+      - key: GOOGLE_MAPS_API_KEY
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SMTP_FROM
+        sync: false
+      - key: SHOPINZEN_API_URL
+        sync: false
+      - key: SHOPINZEN_API_KEY
+        sync: false
+      - key: SHOPINZEN_MODEL
+        sync: false
+      - key: PUBLIC_DRUGS_API_URL
+        sync: false
+      - key: PUBLIC_DRUGS_API_KEY
+        sync: false
+      - key: PUBLIC_DRUGS_TIMEOUT_MS
+        value: 4000
