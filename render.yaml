@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: gopharma-api
+    env: node
+    buildCommand: npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_PREFIX
+        value: api
+      - key: CORS_ORIGINS
+        value: *
