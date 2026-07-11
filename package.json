@@ -5,7 +5,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build && tsc-alias && mkdir -p dist/api && cp api/index.js dist/api/index.js",
+    "build": "nest build && tsc-alias",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:prod": "node dist/main",
