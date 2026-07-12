@@ -13,7 +13,7 @@ async function bootstrap() {
 
   express.disable('x-powered-by');
 
-  const apiPrefix = process.env.API_PREFIX ?? 'api';
+  const apiPrefix = process.env.API_PREFIX === '' ? '' : (process.env.API_PREFIX ?? 'api');
   app.setGlobalPrefix(apiPrefix);
 
   const corsOrigins = (process.env.CORS_ORIGINS ?? 'http://localhost:3000,http://localhost:3001')
