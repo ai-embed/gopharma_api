@@ -1,6 +1,6 @@
 export default () => ({
   port: Number(process.env.PORT ?? 3000),
-  apiPrefix: process.env.API_PREFIX ?? 'api',
+  apiPrefix: process.env.API_PREFIX === '' ? '' : (process.env.API_PREFIX ?? 'api'),
   mongodbUri: process.env.MONGODB_URI,
   jwt: {
     accessSecret: process.env.JWT_ACCESS_SECRET,
