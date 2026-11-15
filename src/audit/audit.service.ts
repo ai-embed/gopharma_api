@@ -18,6 +18,26 @@ interface AuditLogInput {
   metadata?: Record<string, unknown>;
 }
 
+export interface AuditObservabilityEvent {
+  id: string;
+  timestamp: string;
+  level: 'error' | 'warn';
+  message: string;
+  path: string;
+  method: string;
+  statusCode: number;
+  traceId: string;
+}
+
+export interface AuditObservabilitySummary {
+  totalActions: number;
+  totalErrors: number;
+  totalWarnings: number;
+  errorRate: number;
+  uniqueEndpointsAffected: number;
+  recentEvents: AuditObservabilityEvent[];
+}
+
 @Injectable()
 export class AuditService {
   constructor(
@@ -98,6 +118,75 @@ export class AuditService {
       page,
       limit,
       total
+    };
+  }
+
+  async getObservability(): Promise<AuditObservabilitySummary> {
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const windowFilter = { createdAt: { $gte: since } };
+    const errorFilter = { ...windowFilter, outcome: 'ERROR' as const };
+
+    const [
+      totalActions,
+      failedActions,
+      totalErrors,
+      totalWarnings,
+      affectedPaths,
+      recentLogs
+    ] = await Promise.all([
+      this.auditLogModel.countDocuments(windowFilter).exec(),
+      this.auditLogModel.countDocuments(errorFilter).exec(),
+      this.auditLogModel
+        .countDocuments({ ...errorFilter, statusCode: { $gte: 500 } })
+        .exec(),
+      this.auditLogModel
+        .countDocuments({
+          ...errorFilter,
+          statusCode: { $gte: 400, $lt: 500 }
+        })
+        .exec(),
+      this.auditLogModel.distinct('path', errorFilter).exec(),
+      this.auditLogModel
+        .find(errorFilter)
+        .sort({ createdAt: -1 })
+        .limit(50)
+        .select('_id createdAt method path statusCode requestId')
+        .lean()
+        .exec()
+    ]);
+
+    const endpoints = new Set(
+      affectedPaths.map((path) =>
+        String(path)
+          .split('?')[0]
+          .replace(/[0-9a-f]{24}/gi, ':id')
+          .replace(/[0-9a-f-]{36}/gi, ':id')
+          .replace(/\/\d+(?=\/|$)/g, '/:id')
+      )
+    );
+
+    return {
+      totalActions,
+      totalErrors,
+      totalWarnings,
+      errorRate:
+        totalActions === 0
+          ? 0
+          : Math.round((failedActions / totalActions) * 1000) / 10,
+      uniqueEndpointsAffected: endpoints.size,
+      recentEvents: recentLogs.map((log) => ({
+        id: log._id.toString(),
+        timestamp: new Date(log.createdAt).toISOString(),
+        level: log.statusCode >= 500 ? 'error' : 'warn',
+        message:
+          log.statusCode >= 500
+            ? 'Erreur serveur'
+            : 'Requête rejetée par le serveur',
+        path: String(log.path).split('?')[0],
+        method: log.method,
+        statusCode: log.statusCode,
+        traceId: log.requestId ?? log._id.toString()
+      }))
     };
   }
 }

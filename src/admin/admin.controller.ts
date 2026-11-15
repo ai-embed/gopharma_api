@@ -31,6 +31,7 @@ import {
   AdminProductsCleanupResponseDto,
   AdminMedicamentsListResponseDto,
   AdminMedicamentsSyncResponseDto,
+  AdminObservabilityResponseDto,
   AdminReportsOverviewResponseDto,
   AdminValidationApprovalResponseDto,
   AdminValidationRejectionResponseDto,
@@ -230,6 +231,12 @@ export class AdminController {
   @ApiOkResponse({ type: AdminGrowthOverviewResponseDto })
   growthOverview() {
     return this.adminService.getGrowthOverview();
+  }
+
+  @Get('observability')
+  @ApiOkResponse({ type: AdminObservabilityResponseDto })
+  observability() {
+    return this.adminService.getObservability();
   }
 
   @Get('integrations/status')

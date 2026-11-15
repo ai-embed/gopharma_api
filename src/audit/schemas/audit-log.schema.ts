@@ -38,6 +38,10 @@ export class AuditLog {
 
   @Prop({ type: MongooseSchema.Types.Mixed, required: false })
   metadata?: Record<string, unknown>;
+
+  createdAt!: Date;
+
+  updatedAt!: Date;
 }
 
 export const AuditLogSchema = SchemaFactory.createForClass(AuditLog);
