@@ -38,14 +38,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: go_pharma_api
+        working-directory: .
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: go_pharma_api/package-lock.json
+          cache-dependency-path: package-lock.json
       - name: Install
         run: npm ci
       - name: Lint
@@ -55,14 +55,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: go_pharma_api
+        working-directory: .
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: go_pharma_api/package-lock.json
+          cache-dependency-path: package-lock.json
       - name: Install
         run: npm ci
       - name: Build
@@ -73,14 +73,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-unit
-          path: go_pharma_api/coverage/
+          path: coverage/
           retention-days: 7
 
   test-e2e:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: go_pharma_api
+        working-directory: .
     services:
       mongodb:
         image: mongo:7
@@ -100,7 +100,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: go_pharma_api/package-lock.json
+          cache-dependency-path: package-lock.json
       - name: Install
         run: npm ci
       - name: Wait for Mongo
@@ -116,25 +116,25 @@ jobs:
       - name: E2E tests
         run: npm run test:e2e -- --runInBand
       - name: Upload e2e logs
-        if: failure() && hashFiles('go_pharma_api/test-results/**') != ''
+        if: failure() && hashFiles('test-results/**') != ''
         uses: actions/upload-artifact@v4
         with:
           name: e2e-logs
-          path: go_pharma_api/test-results/
+          path: test-results/
           retention-days: 7
 
   security:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: go_pharma_api
+        working-directory: .
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: go_pharma_api/package-lock.json
+          cache-dependency-path: package-lock.json
       - name: Install
         run: npm ci
       - name: Security audit
@@ -146,14 +146,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: go_pharma_api
+        working-directory: .
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: go_pharma_api/package-lock.json
+          cache-dependency-path: package-lock.json
       - name: Install
         run: npm ci
       - name: Build
@@ -162,7 +162,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: go_pharma_api/dist/
+          path: dist/
           retention-days: 7
 
   docker:
@@ -176,7 +176,7 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./go_pharma_api
+          context: .
           push: false
           tags: gopharma-api:${{ github.ref_name }}
           cache-from: type=gha
@@ -212,8 +212,8 @@ jobs:
       - name: Build and push backend image
         uses: docker/build-push-action@v5
         with:
-          context: ./go_pharma_api
-          file: ./go_pharma_api/Dockerfile
+          context: .
+          file: ./Dockerfile
           push: true
           tags: |
             ${{ steps.image.outputs.base }}:${{ env.IMAGE_TAG }}

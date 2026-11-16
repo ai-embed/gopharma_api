@@ -252,3 +252,49 @@ export class AdminGrowthOverviewResponseDto {
   @ApiProperty({ type: AdminGrowthSliceDto, isArray: true })
   roleBreakdown!: AdminGrowthSliceDto[];
 }
+
+export class AdminObservabilityEventDto {
+  @ApiProperty()
+  id!: string;
+
+  @ApiProperty()
+  timestamp!: string;
+
+  @ApiProperty({ enum: ['error', 'warn'] })
+  level!: 'error' | 'warn';
+
+  @ApiProperty()
+  message!: string;
+
+  @ApiProperty()
+  path!: string;
+
+  @ApiProperty()
+  method!: string;
+
+  @ApiProperty()
+  statusCode!: number;
+
+  @ApiProperty()
+  traceId!: string;
+}
+
+export class AdminObservabilityResponseDto {
+  @ApiProperty()
+  totalActions!: number;
+
+  @ApiProperty()
+  totalErrors!: number;
+
+  @ApiProperty()
+  totalWarnings!: number;
+
+  @ApiProperty()
+  errorRate!: number;
+
+  @ApiProperty()
+  uniqueEndpointsAffected!: number;
+
+  @ApiProperty({ type: AdminObservabilityEventDto, isArray: true })
+  recentEvents!: AdminObservabilityEventDto[];
+}

@@ -116,6 +116,10 @@ export class AdminService {
     return this.auditService.list(query);
   }
 
+  getObservability() {
+    return this.auditService.getObservability();
+  }
+
   getIntegrationsStatus() {
     return this.integrationValidationService.getStatus();
   }

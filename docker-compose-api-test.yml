@@ -19,7 +19,7 @@ services:
   api-test-runner:
     init: true
     build:
-      context: ./go_pharma_api
+      context: .
       dockerfile: Dockerfile.dev
     env_file:
       - ${API_TEST_ENV_FILE:-.env.api-test.example}
