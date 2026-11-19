@@ -7,6 +7,9 @@ import { PublicPharmacyResponseDto } from './dto/public-pharmacy-response.dto';
 import { PharmacyQueryDto } from './dto/pharmacy-query.dto';
 import { PharmaciesService } from './pharmacies.service';
 import { SchedulesService } from '../schedules/schedules.service';
+import { RateLimit } from '../common/decorators/rate-limit.decorator';
+import { CreatePharmacyReportDto } from './dto/create-pharmacy-report.dto';
+import { PharmacyReportsService } from './pharmacy-reports.service';
 
 @ApiTags('Pharmacies')
 @Controller('pharmacies')
