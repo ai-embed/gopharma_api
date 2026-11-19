@@ -66,6 +66,10 @@ export class NotificationsService {
     metadata?: Record<string, unknown>
   ) {
     const user = await this.usersService.findById(userId);
+    if (user.preferences?.alertsEnabled === false) {
+      return null;
+    }
+
     const channels = user.preferences?.channels ?? [NotificationChannel.IN_APP];
     const language = this.localizationService.normalizeLanguage(user.preferences?.language);
     const title = this.localizationService.translate(content.titleKey, language, content.params);

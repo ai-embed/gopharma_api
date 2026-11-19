@@ -19,8 +19,8 @@ export class DatabasePushNotificationSender implements PushNotificationSender {
       return;
     }
 
-    this.logger.log(
-      `Push notification queued for user ${input.userId} (${tokens.length} device(s))`
+    this.logger.warn(
+      `Push delivery is not configured; notification for user ${input.userId} was not sent to ${tokens.length} device(s)`
     );
   }
 }

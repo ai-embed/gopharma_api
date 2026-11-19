@@ -121,4 +121,44 @@ describe('NotificationsService', () => {
     );
     expect(mailerService.sendMail).not.toHaveBeenCalled();
   });
+
+  it('does not send alerts when the user has disabled them', async () => {
+    const notificationModel = {
+      create: jest.fn(async (payload) => payload)
+    };
+    const pushSender = {
+      send: jest.fn(async () => undefined)
+    };
+    const usersService = {
+      findById: jest.fn(async () => ({
+        _id: '507f1f77bcf86cd799439011',
+        email: 'user@test.local',
+        preferences: {
+          language: SupportedLanguage.FR,
+          alertsEnabled: false,
+          channels: [NotificationChannel.IN_APP, NotificationChannel.EMAIL, NotificationChannel.PUSH]
+        }
+      }))
+    };
+    const mailerService = {
+      sendMail: jest.fn(async () => undefined)
+    };
+
+    const service = new NotificationsService(
+      notificationModel as never,
+      usersService as never,
+      mailerService as never,
+      new LocalizationService(),
+      pushSender
+    );
+
+    await service.notifyUser('507f1f77bcf86cd799439011', NotificationType.SUSPENSION, {
+      titleKey: 'notification.accountSuspended.title',
+      messageKey: 'notification.accountSuspended.message'
+    });
+
+    expect(notificationModel.create).not.toHaveBeenCalled();
+    expect(mailerService.sendMail).not.toHaveBeenCalled();
+    expect(pushSender.send).not.toHaveBeenCalled();
+  });
 });
