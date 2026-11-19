@@ -367,43 +367,15 @@ jobs:
             done
           done
 
-  deploy-production:
+  production-context:
     needs: [docker-test-env, lint, test-unit, test-e2e, build]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: production
-    env:
-      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
-      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
-      JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
-      JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
-      JWT_ACCESS_TTL: ${{ secrets.JWT_ACCESS_TTL }}
-      JWT_REFRESH_TTL: ${{ secrets.JWT_REFRESH_TTL }}
-      SMTP_HOST: ${{ secrets.SMTP_HOST }}
-      SMTP_PORT: ${{ secrets.SMTP_PORT }}
-      SMTP_USER: ${{ secrets.SMTP_USER }}
-      SMTP_PASS: ${{ secrets.SMTP_PASS }}
-      SMTP_FROM: ${{ secrets.SMTP_FROM }}
-      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
-      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-      GOOGLE_CALLBACK_URL: ${{ secrets.GOOGLE_CALLBACK_URL }}
-      GOOGLE_SUCCESS_REDIRECT_URL: ${{ secrets.GOOGLE_SUCCESS_REDIRECT_URL }}
-      GOOGLE_FAILURE_REDIRECT_URL: ${{ secrets.GOOGLE_FAILURE_REDIRECT_URL }}
-      CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
-      CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
-      CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
     steps:
       - uses: actions/checkout@v4
-      - name: Validate environment secrets
+      - name: Report production release metadata
         run: |
-          test -n "${MONGO_INITDB_ROOT_USERNAME}" || (echo "Missing MONGO_INITDB_ROOT_USERNAME secret" && exit 1)
-          test -n "${MONGO_INITDB_ROOT_PASSWORD}" || (echo "Missing MONGO_INITDB_ROOT_PASSWORD secret" && exit 1)
-          test -n "${JWT_ACCESS_SECRET}" || (echo "Missing JWT_ACCESS_SECRET secret" && exit 1)
-          test -n "${JWT_REFRESH_SECRET}" || (echo "Missing JWT_REFRESH_SECRET secret" && exit 1)
-      - name: Deploy metadata
-        run: |
-          echo "Backend production deployment context"
+          echo "No production deployment is configured for this workflow."
           echo "branch=${GITHUB_REF_NAME}"
           echo "sha=${GITHUB_SHA}"
           echo "actor=${GITHUB_ACTOR}"
