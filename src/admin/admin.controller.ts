@@ -48,6 +48,7 @@ import { UpdateAdminPharmacyDto } from './dto/update-admin-pharmacy.dto';
 import { UpdateAdminMedicamentDto } from './dto/update-admin-medicament.dto';
 import { UpdateAdminUserDto } from './dto/update-admin-user.dto';
 import { AdminService } from './admin.service';
+import { ReviewPharmacyReportDto } from 'src/pharmacies/dto/review-pharmacy-report.dto';
 
 @ApiTags('Admin')
 @ApiBearerAuth('bearer')
@@ -64,6 +65,20 @@ export class AdminController {
   @ApiOkResponse({ type: PharmacyValidationResponseDto, isArray: true })
   listValidations() {
     return this.adminService.listValidations();
+  }
+
+  @Get('pharmacy-reports')
+  listPharmacyReports() {
+    return this.adminService.listPharmacyReports();
+  }
+
+  @Patch('pharmacy-reports/:id/review')
+  reviewPharmacyReport(
+    @Param('id') reportId: string,
+    @CurrentUser() admin: AuthenticatedUser,
+    @Body() dto: ReviewPharmacyReportDto
+  ) {
+    return this.adminService.reviewPharmacyReport(reportId, admin.userId, dto);
   }
 
   @Post('validations/:id/approve')

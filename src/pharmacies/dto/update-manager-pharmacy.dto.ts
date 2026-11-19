@@ -1,5 +1,13 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsArray, IsLatitude, IsLongitude, IsOptional, IsString, Length } from 'class-validator';
+import {
+  IsArray,
+  IsLatitude,
+  IsLongitude,
+  IsOptional,
+  IsString,
+  Length,
+  Matches
+} from 'class-validator';
 
 export class UpdateManagerPharmacyDto {
   @ApiPropertyOptional({ example: 'Pharmacie du Centre' })
@@ -13,6 +21,13 @@ export class UpdateManagerPharmacyDto {
   @IsString()
   @Length(3, 300)
   address?: string;
+
+  @ApiPropertyOptional({ example: '+229 01 23 45 67' })
+  @IsOptional()
+  @IsString()
+  @Length(5, 30)
+  @Matches(/^[+0-9().\-\s]+$/)
+  phoneNumber?: string | null;
 
   @ApiPropertyOptional({ example: 6.3654 })
   @IsOptional()

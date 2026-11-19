@@ -29,6 +29,9 @@ export class ManagerPharmacyResponseDto {
   email?: string;
 
   @ApiPropertyOptional()
+  phoneNumber?: string;
+
+  @ApiPropertyOptional()
   description?: string;
 
   @ApiPropertyOptional()

@@ -38,6 +38,7 @@ export class PharmaciesService {
     return this.pharmacyModel.create({
       name: dto.pharmacyName,
       address: dto.pharmacyAddress,
+      phoneNumber: dto.pharmacyPhoneNumber,
       location: {
         type: 'Point',
         coordinates: [dto.longitude, dto.latitude]
@@ -106,6 +107,9 @@ export class PharmaciesService {
 
     if (dto.name !== undefined) pharmacy.name = dto.name;
     if (dto.address !== undefined) pharmacy.address = dto.address;
+    if (dto.phoneNumber !== undefined) {
+      pharmacy.phoneNumber = dto.phoneNumber?.trim() || undefined;
+    }
     if (dto.description !== undefined) pharmacy.description = dto.description;
     if (dto.email !== undefined) pharmacy.email = dto.email;
     if (dto.services !== undefined) pharmacy.services = dto.services;
@@ -251,7 +255,8 @@ export class PharmaciesService {
     }
 
     if (query.search) {
-      const regex = new RegExp(query.search, 'i');
+      const escapedSearch = query.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(escapedSearch, 'i');
       mongoQuery.$or = [{ name: regex }, { address: regex }];
     }
 
@@ -464,6 +469,8 @@ export class PharmaciesService {
 
     return {
       ...serialized,
+      source: 'registered',
+      isCommunityReported: false,
       openNow: derivedOpenNow,
       operationalStatus: derivedOpenNow ? 'OUVERT' : 'FERME',
       availabilitySource: scheduleStatus?.source ?? 'manual',

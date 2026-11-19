@@ -22,11 +22,14 @@ export class PublicPharmacyResponseDto {
   @ApiProperty({ type: PharmacyLocationResponseDto })
   location!: PharmacyLocationResponseDto;
 
-  @ApiProperty()
-  ifu!: string;
+  @ApiPropertyOptional()
+  ifu?: string;
 
   @ApiPropertyOptional()
   email?: string;
+
+  @ApiPropertyOptional()
+  phoneNumber?: string;
 
   @ApiPropertyOptional()
   description?: string;
@@ -43,17 +46,17 @@ export class PublicPharmacyResponseDto {
   @ApiPropertyOptional()
   bannerUrl?: string;
 
-  @ApiProperty({ enum: AccountStatus })
-  accountStatus!: AccountStatus;
+  @ApiPropertyOptional({ enum: AccountStatus })
+  accountStatus?: AccountStatus;
 
-  @ApiProperty({ enum: ['OUVERT', 'FERME'] })
-  operationalStatus!: 'OUVERT' | 'FERME';
+  @ApiPropertyOptional({ enum: ['OUVERT', 'FERME'] })
+  operationalStatus?: 'OUVERT' | 'FERME';
 
-  @ApiProperty()
-  openNow!: boolean;
+  @ApiPropertyOptional()
+  openNow?: boolean;
 
-  @ApiProperty({ enum: ['manual', 'schedule'] })
-  availabilitySource!: 'manual' | 'schedule';
+  @ApiProperty({ enum: ['manual', 'schedule', 'unknown'] })
+  availabilitySource!: 'manual' | 'schedule' | 'unknown';
 
   @ApiPropertyOptional()
   nextTransitionAt?: string;
@@ -61,12 +64,18 @@ export class PublicPharmacyResponseDto {
   @ApiPropertyOptional()
   matchedRule?: string;
 
+  @ApiPropertyOptional({ enum: ['registered', 'community'] })
+  source?: 'registered' | 'community';
+
+  @ApiPropertyOptional()
+  isCommunityReported?: boolean;
+
   @ApiPropertyOptional()
   validationDate?: string;
 
-  @ApiProperty()
-  createdAt!: string;
+  @ApiPropertyOptional()
+  createdAt?: string;
 
-  @ApiProperty()
-  updatedAt!: string;
+  @ApiPropertyOptional()
+  updatedAt?: string;
 }

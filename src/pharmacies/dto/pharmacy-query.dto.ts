@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { IsBoolean, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 
 export class PharmacyQueryDto {
@@ -40,7 +40,14 @@ export class PharmacyQueryDto {
 
   @ApiPropertyOptional({ example: true })
   @IsOptional()
-  @Type(() => Boolean)
+  @Transform(({ value }) => {
+    if (typeof value === 'boolean') return value;
+    if (typeof value === 'string') {
+      if (value.trim().toLowerCase() === 'true') return true;
+      if (value.trim().toLowerCase() === 'false') return false;
+    }
+    return value;
+  })
   @IsBoolean()
   openNow?: boolean;
 
