@@ -13,6 +13,8 @@ import {
 import { NotificationsService } from '../notifications/notifications.service';
 import { PharmaciesService } from '../pharmacies/pharmacies.service';
 import { PharmacyValidationsService } from '../pharmacies/pharmacy-validations.service';
+import { PharmacyReportsService } from '../pharmacies/pharmacy-reports.service';
+import { ReviewPharmacyReportDto } from '../pharmacies/dto/review-pharmacy-report.dto';
 import { PublicDrugsService } from '../public-drugs/public-drugs.service';
 import { PublicDrugsSort } from '../public-drugs/dto/public-drugs-query.dto';
 import { UsersService } from '../users/users.service';
@@ -93,7 +95,9 @@ export class AdminService {
     private readonly inventoryModel?: Model<InventoryItemDocument>,
     @Optional()
     @InjectModel(Product.name)
-    private readonly productModel?: Model<ProductDocument>
+    private readonly productModel?: Model<ProductDocument>,
+    @Optional()
+    private readonly pharmacyReportsService?: PharmacyReportsService
   ) {}
 
   listUsers() {
@@ -130,6 +134,16 @@ export class AdminService {
 
   listValidations() {
     return this.validationsService.listPending();
+  }
+
+  listPharmacyReports() {
+    if (!this.pharmacyReportsService) throw new Error('Pharmacy reports are not configured');
+    return this.pharmacyReportsService.listPending();
+  }
+
+  reviewPharmacyReport(reportId: string, adminUserId: string, dto: ReviewPharmacyReportDto) {
+    if (!this.pharmacyReportsService) throw new Error('Pharmacy reports are not configured');
+    return this.pharmacyReportsService.review(reportId, adminUserId, dto);
   }
 
   listMedicaments(

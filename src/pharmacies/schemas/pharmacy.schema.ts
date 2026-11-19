@@ -30,6 +30,9 @@ export class Pharmacy {
   @Prop({ required: false })
   email?: string;
 
+  @Prop({ required: false, trim: true })
+  phoneNumber?: string;
+
   @Prop({ required: false })
   description?: string;
 

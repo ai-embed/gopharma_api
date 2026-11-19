@@ -48,6 +48,13 @@ export class RegisterPharmacyDto {
   @Length(3, 300)
   pharmacyAddress!: string;
 
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @Length(5, 30)
+  @Matches(/^[+0-9().\-\s]+$/)
+  pharmacyPhoneNumber?: string;
+
   @ApiProperty()
   @IsString()
   @Length(5, 100)

@@ -9,14 +9,17 @@ import {
   PharmacyValidationSchema
 } from './schemas/pharmacy-validation.schema';
 import { Pharmacy, PharmacySchema } from './schemas/pharmacy.schema';
+import { PharmacyReport, PharmacyReportSchema } from './schemas/pharmacy-report.schema';
 import { PharmaciesController } from './pharmacies.controller';
 import { PharmaciesService } from './pharmacies.service';
+import { PharmacyReportsService } from './pharmacy-reports.service';
 import { PharmacyValidationsService } from './pharmacy-validations.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Pharmacy.name, schema: PharmacySchema },
+      { name: PharmacyReport.name, schema: PharmacyReportSchema },
       { name: PharmacyValidation.name, schema: PharmacyValidationSchema }
     ]),
     CloudinaryModule,
@@ -25,10 +28,11 @@ import { PharmacyValidationsService } from './pharmacy-validations.service';
     VisitsModule
   ],
   controllers: [PharmaciesController],
-  providers: [PharmaciesService, PharmacyValidationsService],
+  providers: [PharmaciesService, PharmacyValidationsService, PharmacyReportsService],
   exports: [
     PharmaciesService,
     PharmacyValidationsService,
+    PharmacyReportsService,
     MongooseModule
   ]
 })
