@@ -67,6 +67,10 @@ describe('AuthService', () => {
         save
       }))
     };
+    const resetModel = {
+      create: jest.fn(),
+      find: jest.fn(() => ({ exec: jest.fn(async () => []) }))
+    };
 
     const service = new AuthService(
       jwtService,
@@ -82,7 +86,7 @@ describe('AuthService', () => {
         exists: jest.fn(() => ({ exec: jest.fn(async () => overrides?.blacklisted ?? false) })),
         updateOne: jest.fn(() => ({ exec: jest.fn(async () => ({ acknowledged: true })) }))
       } as never,
-      { create: jest.fn(), find: jest.fn() } as never,
+      resetModel as never,
       { create: jest.fn(), find: jest.fn() } as never
     );
 
@@ -90,6 +94,8 @@ describe('AuthService', () => {
       service,
       usersService,
       mailerService,
+      resetModel,
+      save,
       googleTokenVerifierService,
       jwtService
     };
@@ -203,6 +209,34 @@ describe('AuthService', () => {
       'GoPharma password reset',
       expect.stringContaining('Use this password reset code:')
     );
+  });
+
+  it('resets the password with a valid emailed token and marks the token used', async () => {
+    const { service, usersService, resetModel, save } = createService();
+    const userRecord = { ...issueUser, save };
+    usersService.findById.mockResolvedValue(userRecord);
+    const entry = {
+      userId: { toString: () => userId },
+      tokenHash: await bcrypt.hash('emailed-reset-code', 4),
+      expiresAt: new Date(Date.now() + 60_000),
+      usedAt: undefined as Date | undefined,
+      save: jest.fn()
+    };
+    resetModel.find.mockReturnValue({
+      exec: jest.fn().mockResolvedValue([entry])
+    });
+
+    await expect(
+      service.resetPassword({
+        token: 'emailed-reset-code',
+        newPassword: 'NewSecurePass123!'
+      })
+    ).resolves.toEqual({ success: true });
+
+    expect(await bcrypt.compare('NewSecurePass123!', userRecord.passwordHash)).toBe(true);
+    expect(save).toHaveBeenCalled();
+    expect(entry.usedAt).toBeInstanceOf(Date);
+    expect(entry.save).toHaveBeenCalled();
   });
 
   it('uses verified google identity instead of trusting client fields', async () => {
