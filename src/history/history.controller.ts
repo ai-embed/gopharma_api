@@ -1,11 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { AuditLogListResponseDto } from 'src/audit/dto/audit-log-response.dto';
-import { AuditService } from 'src/audit/audit.service';
-import { SuccessResponseDto } from 'src/auth/dto/auth-response.dto';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { AuthenticatedUser } from 'src/common/types/authenticated-user.type';
+import { AuditLogListResponseDto } from '../audit/dto/audit-log-response.dto';
+import { AuditService } from '../audit/audit.service';
+import { SuccessResponseDto } from '../auth/dto/auth-response.dto';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { AuthenticatedUser } from '../common/types/authenticated-user.type';
 import { HistoryActivityQueryDto } from './dto/history-activity-query.dto';
 import { CreateHistoryDto } from './dto/create-history.dto';
 import { HistoryResponseDto } from './dto/history-response.dto';

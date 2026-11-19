@@ -4,10 +4,10 @@ import { Model, Types } from 'mongoose';
 import {
   NotificationChannel,
   NotificationType
-} from 'src/common/enums/domain.enums';
-import { LocalizationService } from 'src/common/localization/localization.service';
-import { MailerService } from 'src/common/services/mailer.service';
-import { UsersService } from 'src/users/users.service';
+} from '../common/enums/domain.enums';
+import { LocalizationService } from '../common/localization/localization.service';
+import { MailerService } from '../common/services/mailer.service';
+import { UsersService } from '../users/users.service';
 import { Notification, NotificationDocument } from './schemas/notification.schema';
 
 interface LocalizedNotificationContent {

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CatalogService } from 'src/catalog/catalog.service';
-import { GeocodingService } from 'src/common/services/geocoding.service';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
-import { SchedulesService } from 'src/schedules/schedules.service';
+import { CatalogService } from '../catalog/catalog.service';
+import { GeocodingService } from '../common/services/geocoding.service';
+import { PharmaciesService } from '../pharmacies/pharmacies.service';
+import { SchedulesService } from '../schedules/schedules.service';
 import { SearchPharmaciesDto } from './dto/search-pharmacies.dto';
 import { SearchMultiProductsDto } from './dto/search-multi-products.dto';
 import { SearchProductsDto } from './dto/search-products.dto';

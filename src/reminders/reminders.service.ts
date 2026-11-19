@@ -6,8 +6,8 @@ import {
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { NotificationType, ReminderFrequency } from 'src/common/enums/domain.enums';
-import { NotificationsService } from 'src/notifications/notifications.service';
+import { NotificationType, ReminderFrequency } from '../common/enums/domain.enums';
+import { NotificationsService } from '../notifications/notifications.service';
 import { CreateReminderDto } from './dto/create-reminder.dto';
 import { UpdateReminderDto } from './dto/update-reminder.dto';
 import {

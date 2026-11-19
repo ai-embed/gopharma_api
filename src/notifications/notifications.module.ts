@@ -1,7 +1,7 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { MailerService } from 'src/common/services/mailer.service';
-import { UsersModule } from 'src/users/users.module';
+import { MailerService } from '../common/services/mailer.service';
+import { UsersModule } from '../users/users.module';
 import { Notification, NotificationSchema } from './schemas/notification.schema';
 import { PushToken, PushTokenSchema } from './schemas/push-token.schema';
 import { NotificationsController } from './notifications.controller';

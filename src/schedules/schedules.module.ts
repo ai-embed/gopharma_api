@@ -1,6 +1,6 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
+import { PharmaciesModule } from '../pharmacies/pharmacies.module';
 import { Schedule, ScheduleSchema } from './schemas/schedule.schema';
 import { SchedulesService } from './schedules.service';
 

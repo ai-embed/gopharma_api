@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { ValidationStatus } from 'src/common/enums/domain.enums';
+import { ValidationStatus } from '../../common/enums/domain.enums';
 
 export type PharmacyValidationDocument = HydratedDocument<PharmacyValidation>;
 

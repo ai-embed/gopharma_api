@@ -16,7 +16,7 @@ import {
   ApiTags
 } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-import { Public } from 'src/common/decorators/public.decorator';
+import { Public } from '../common/decorators/public.decorator';
 import { AuthService } from './auth.service';
 import {
   AuthSessionResponseDto,

@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { SuccessResponseDto } from 'src/auth/dto/auth-response.dto';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { AuthenticatedUser } from 'src/common/types/authenticated-user.type';
+import { SuccessResponseDto } from '../auth/dto/auth-response.dto';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { AuthenticatedUser } from '../common/types/authenticated-user.type';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
 import { FavoriteResponseDto } from './dto/favorite-response.dto';
 import { FavoritesService } from './favorites.service';

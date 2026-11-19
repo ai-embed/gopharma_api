@@ -10,19 +10,19 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { SuccessResponseDto } from 'src/auth/dto/auth-response.dto';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { Roles } from 'src/common/decorators/roles.decorator';
-import { Role } from 'src/common/enums/domain.enums';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { AuthenticatedUser } from 'src/common/types/authenticated-user.type';
-import { AuditLogQueryDto } from 'src/audit/dto/audit-log-query.dto';
-import { AuditLogListResponseDto } from 'src/audit/dto/audit-log-response.dto';
-import { UserResponseDto } from 'src/users/dto/user-response.dto';
-import { MailerService } from 'src/common/services/mailer.service';
-import { PublicDrugsQueryDto } from 'src/public-drugs/dto/public-drugs-query.dto';
-import { PublicDrugResponseDto } from 'src/public-drugs/dto/public-drug-response.dto';
+import { SuccessResponseDto } from '../auth/dto/auth-response.dto';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { Roles } from '../common/decorators/roles.decorator';
+import { Role } from '../common/enums/domain.enums';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { AuthenticatedUser } from '../common/types/authenticated-user.type';
+import { AuditLogQueryDto } from '../audit/dto/audit-log-query.dto';
+import { AuditLogListResponseDto } from '../audit/dto/audit-log-response.dto';
+import { UserResponseDto } from '../users/dto/user-response.dto';
+import { MailerService } from '../common/services/mailer.service';
+import { PublicDrugsQueryDto } from '../public-drugs/dto/public-drugs-query.dto';
+import { PublicDrugResponseDto } from '../public-drugs/dto/public-drug-response.dto';
 import {
   AdminGrowthOverviewResponseDto,
   AdminPharmacyResponseDto,

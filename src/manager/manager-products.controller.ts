@@ -9,18 +9,18 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { CatalogService } from 'src/catalog/catalog.service';
-import { CreateProductDto } from 'src/catalog/dto/create-product.dto';
-import { UpdatePriceDto } from 'src/catalog/dto/update-price.dto';
-import { UpdateProductDto } from 'src/catalog/dto/update-product.dto';
-import { UpdateStockDto } from 'src/catalog/dto/update-stock.dto';
-import { SuccessResponseDto } from 'src/auth/dto/auth-response.dto';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { Roles } from 'src/common/decorators/roles.decorator';
-import { Role } from 'src/common/enums/domain.enums';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { AuthenticatedUser } from 'src/common/types/authenticated-user.type';
+import { CatalogService } from '../catalog/catalog.service';
+import { CreateProductDto } from '../catalog/dto/create-product.dto';
+import { UpdatePriceDto } from '../catalog/dto/update-price.dto';
+import { UpdateProductDto } from '../catalog/dto/update-product.dto';
+import { UpdateStockDto } from '../catalog/dto/update-stock.dto';
+import { SuccessResponseDto } from '../auth/dto/auth-response.dto';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { Roles } from '../common/decorators/roles.decorator';
+import { Role } from '../common/enums/domain.enums';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { AuthenticatedUser } from '../common/types/authenticated-user.type';
 import {
   ManagerInventoryItemResponseDto,
   ManagerProductMutationResponseDto,

@@ -1,5 +1,5 @@
 import mongoose, { Model, Types } from 'mongoose';
-import { loadBackendEnv } from 'src/common/testing/load-env';
+import { loadBackendEnv } from '../common/testing/load-env';
 import { AuditService } from './audit.service';
 import { AuditLog, AuditLogDocument, AuditLogSchema } from './schemas/audit-log.schema';
 

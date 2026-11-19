@@ -5,21 +5,21 @@ import {
   NotificationType,
   Role,
   ValidationStatus
-} from 'src/common/enums/domain.enums';
-import { LocalizationService } from 'src/common/localization/localization.service';
-import { loadBackendEnv } from 'src/common/testing/load-env';
-import { PharmacyValidationsService } from 'src/pharmacies/pharmacy-validations.service';
-import { PharmacyValidation, PharmacyValidationDocument, PharmacyValidationSchema } from 'src/pharmacies/schemas/pharmacy-validation.schema';
-import { Pharmacy, PharmacyDocument, PharmacySchema } from 'src/pharmacies/schemas/pharmacy.schema';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
-import { Notification, NotificationDocument, NotificationSchema } from 'src/notifications/schemas/notification.schema';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { User, UserDocument, UserSchema } from 'src/users/schemas/user.schema';
-import { UsersService } from 'src/users/users.service';
-import { AdminService } from 'src/admin/admin.service';
-import { IntegrationValidationService } from 'src/admin/integration-validation.service';
-import { Suspension, SuspensionDocument, SuspensionSchema } from 'src/admin/schemas/suspension.schema';
-import { AuditService } from 'src/audit/audit.service';
+} from '../common/enums/domain.enums';
+import { LocalizationService } from '../common/localization/localization.service';
+import { loadBackendEnv } from '../common/testing/load-env';
+import { PharmacyValidationsService } from '../pharmacies/pharmacy-validations.service';
+import { PharmacyValidation, PharmacyValidationDocument, PharmacyValidationSchema } from '../pharmacies/schemas/pharmacy-validation.schema';
+import { Pharmacy, PharmacyDocument, PharmacySchema } from '../pharmacies/schemas/pharmacy.schema';
+import { PharmaciesService } from '../pharmacies/pharmacies.service';
+import { Notification, NotificationDocument, NotificationSchema } from '../notifications/schemas/notification.schema';
+import { NotificationsService } from '../notifications/notifications.service';
+import { User, UserDocument, UserSchema } from '../users/schemas/user.schema';
+import { UsersService } from '../users/users.service';
+import { AdminService } from '../admin/admin.service';
+import { IntegrationValidationService } from '../admin/integration-validation.service';
+import { Suspension, SuspensionDocument, SuspensionSchema } from '../admin/schemas/suspension.schema';
+import { AuditService } from '../audit/audit.service';
 import { AuthService } from './auth.service';
 import {
   PasswordResetToken,

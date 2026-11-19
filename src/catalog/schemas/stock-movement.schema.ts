@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { StockMovementType } from 'src/common/enums/domain.enums';
+import { StockMovementType } from '../../common/enums/domain.enums';
 
 export type StockMovementDocument = HydratedDocument<StockMovement>;
 

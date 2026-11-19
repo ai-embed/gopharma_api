@@ -1,11 +1,11 @@
 import { forwardRef, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types } from 'mongoose';
-import { AccountStatus } from 'src/common/enums/domain.enums';
-import { CloudinaryService } from 'src/common/services/cloudinary.service';
-import { SchedulesService } from 'src/schedules/schedules.service';
-import { RegisterPharmacyDto } from 'src/auth/dto/register-pharmacy.dto';
-import { UserDocument } from 'src/users/schemas/user.schema';
+import { AccountStatus } from '../common/enums/domain.enums';
+import { CloudinaryService } from '../common/services/cloudinary.service';
+import { SchedulesService } from '../schedules/schedules.service';
+import { RegisterPharmacyDto } from '../auth/dto/register-pharmacy.dto';
+import { UserDocument } from '../users/schemas/user.schema';
 import { PharmacyQueryDto } from './dto/pharmacy-query.dto';
 import { UpdateManagerPharmacyDto } from './dto/update-manager-pharmacy.dto';
 import { Pharmacy, PharmacyDocument } from './schemas/pharmacy.schema';

@@ -1,19 +1,19 @@
 import mongoose, { Model, Types } from 'mongoose';
-import { AccountStatus } from 'src/common/enums/domain.enums';
-import { loadBackendEnv } from 'src/common/testing/load-env';
-import { CatalogService } from 'src/catalog/catalog.service';
-import { InventoryItem, InventoryItemDocument, InventoryItemSchema } from 'src/catalog/schemas/inventory-item.schema';
+import { AccountStatus } from '../common/enums/domain.enums';
+import { loadBackendEnv } from '../common/testing/load-env';
+import { CatalogService } from '../catalog/catalog.service';
+import { InventoryItem, InventoryItemDocument, InventoryItemSchema } from '../catalog/schemas/inventory-item.schema';
 import {
   ManagerCategory,
   ManagerCategoryDocument,
   ManagerCategorySchema
-} from 'src/catalog/schemas/manager-category.schema';
-import { Product, ProductDocument, ProductSchema } from 'src/catalog/schemas/product.schema';
-import { StockMovement, StockMovementDocument, StockMovementSchema } from 'src/catalog/schemas/stock-movement.schema';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
-import { Pharmacy, PharmacyDocument, PharmacySchema } from 'src/pharmacies/schemas/pharmacy.schema';
-import { SchedulesService } from 'src/schedules/schedules.service';
-import { Schedule, ScheduleDocument, ScheduleSchema } from 'src/schedules/schemas/schedule.schema';
+} from '../catalog/schemas/manager-category.schema';
+import { Product, ProductDocument, ProductSchema } from '../catalog/schemas/product.schema';
+import { StockMovement, StockMovementDocument, StockMovementSchema } from '../catalog/schemas/stock-movement.schema';
+import { PharmaciesService } from '../pharmacies/pharmacies.service';
+import { Pharmacy, PharmacyDocument, PharmacySchema } from '../pharmacies/schemas/pharmacy.schema';
+import { SchedulesService } from '../schedules/schedules.service';
+import { Schedule, ScheduleDocument, ScheduleSchema } from '../schedules/schemas/schedule.schema';
 import { SearchService } from './search.service';
 
 loadBackendEnv();

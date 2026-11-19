@@ -2,7 +2,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   NotificationChannel,
   NotificationType
-} from 'src/common/enums/domain.enums';
+} from '../../common/enums/domain.enums';
 
 export class NotificationMetadataDto {
   @ApiPropertyOptional()

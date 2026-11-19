@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { LocalizationService } from 'src/common/localization/localization.service';
-import { UsersService } from 'src/users/users.service';
+import { LocalizationService } from '../common/localization/localization.service';
+import { UsersService } from '../users/users.service';
 import {
   AssistantConversation,
   AssistantConversationDocument

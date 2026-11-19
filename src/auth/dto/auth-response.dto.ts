@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { AccountStatus } from 'src/common/enums/domain.enums';
-import { UserResponseDto } from 'src/users/dto/user-response.dto';
+import { AccountStatus } from '../../common/enums/domain.enums';
+import { UserResponseDto } from '../../users/dto/user-response.dto';
 
 export class TokenPairResponseDto {
   @ApiProperty()

@@ -1,15 +1,12 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { CatalogService } from 'src/catalog/catalog.service';
-import { Public } from 'src/common/decorators/public.decorator';
-import { VisitsService } from 'src/visits/visits.service';
+import { CatalogService } from '../catalog/catalog.service';
+import { Public } from '../common/decorators/public.decorator';
+import { VisitsService } from '../visits/visits.service';
 import { PublicPharmacyResponseDto } from './dto/public-pharmacy-response.dto';
 import { PharmacyQueryDto } from './dto/pharmacy-query.dto';
 import { PharmaciesService } from './pharmacies.service';
-import { SchedulesService } from 'src/schedules/schedules.service';
-import { RateLimit } from 'src/common/decorators/rate-limit.decorator';
-import { CreatePharmacyReportDto } from './dto/create-pharmacy-report.dto';
-import { PharmacyReportsService } from './pharmacy-reports.service';
+import { SchedulesService } from '../schedules/schedules.service';
 
 @ApiTags('Pharmacies')
 @Controller('pharmacies')

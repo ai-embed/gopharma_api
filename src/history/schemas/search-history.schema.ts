@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { SearchType } from 'src/common/enums/domain.enums';
+import { SearchType } from '../../common/enums/domain.enums';
 
 export type SearchHistoryDocument = HydratedDocument<SearchHistory>;
 

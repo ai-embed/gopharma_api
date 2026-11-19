@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { NotificationType, ReminderFrequency } from 'src/common/enums/domain.enums';
+import { NotificationType, ReminderFrequency } from '../common/enums/domain.enums';
 import { RemindersService } from './reminders.service';
 import { PrescriptionReminderDocument } from './schemas/prescription-reminder.schema';
 

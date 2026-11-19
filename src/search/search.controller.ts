@@ -1,7 +1,7 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/common/decorators/public.decorator';
-import { PublicPharmacyResponseDto } from 'src/pharmacies/dto/public-pharmacy-response.dto';
+import { Public } from '../common/decorators/public.decorator';
+import { PublicPharmacyResponseDto } from '../pharmacies/dto/public-pharmacy-response.dto';
 import { AutocompleteQueryDto } from './dto/autocomplete-query.dto';
 import { SearchCategoriesDto } from './dto/search-categories.dto';
 import { SearchMultiProductsDto } from './dto/search-multi-products.dto';

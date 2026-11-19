@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuditModule } from 'src/audit/audit.module';
+import { AuditModule } from '../audit/audit.module';
 import { HistoryController } from './history.controller';
 import { HistoryService } from './history.service';
 import { SearchHistory, SearchHistorySchema } from './schemas/search-history.schema';

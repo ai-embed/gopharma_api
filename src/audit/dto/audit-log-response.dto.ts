@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Role } from 'src/common/enums/domain.enums';
+import { Role } from '../../common/enums/domain.enums';
 
 export class AuditLogMetadataDto {
   @ApiPropertyOptional({ type: 'object', additionalProperties: true })

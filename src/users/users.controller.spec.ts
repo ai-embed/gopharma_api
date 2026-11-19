@@ -1,7 +1,7 @@
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { AccountStatus, Role, SupportedLanguage } from 'src/common/enums/domain.enums';
-import { AuthenticatedUser } from 'src/common/types/authenticated-user.type';
+import { AccountStatus, Role, SupportedLanguage } from '../common/enums/domain.enums';
+import { AuthenticatedUser } from '../common/types/authenticated-user.type';
 import { UpdatePreferencesDto } from './dto/update-preferences.dto';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';

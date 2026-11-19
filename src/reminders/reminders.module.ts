@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { NotificationsModule } from 'src/notifications/notifications.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 import {
   PrescriptionReminder,
   PrescriptionReminderSchema

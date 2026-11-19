@@ -3,7 +3,7 @@ import { HydratedDocument, Types } from 'mongoose';
 import {
   NotificationChannel,
   NotificationType
-} from 'src/common/enums/domain.enums';
+} from '../../common/enums/domain.enums';
 
 export type NotificationDocument = HydratedDocument<Notification>;
 

@@ -4,7 +4,7 @@ import {
   NotificationChannel,
   SupportedLanguage,
   ThemePreference
-} from 'src/common/enums/domain.enums';
+} from '../../common/enums/domain.enums';
 
 export class UpdatePreferencesDto {
   @ApiPropertyOptional({ enum: SupportedLanguage, enumName: 'SupportedLanguage' })
